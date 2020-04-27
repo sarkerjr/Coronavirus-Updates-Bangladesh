@@ -40,7 +40,7 @@ public class WidgetProvider extends AppWidgetProvider {
 
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url ="http://7e7555bb.ngrok.io/api/?format=json";
+        String url ="https://coronabdapi.herokuapp.com/api/?format=json";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
