@@ -27,6 +27,10 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:background="#1e824c"
+        android:shadowColor="#98000000"
+        android:shadowDx="4"
+        android:shadowDy="4"
+        android:shadowRadius="15"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -37,6 +41,7 @@
         android:layout_marginRight="30dp"
         android:textSize="15sp"
         android:padding="10dp"
+        android:layout_marginTop="20dp"
         />
         <TextView
             android:layout_width="wrap_content"
