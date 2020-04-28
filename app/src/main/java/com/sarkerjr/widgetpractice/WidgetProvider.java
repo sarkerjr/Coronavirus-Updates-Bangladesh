@@ -30,13 +30,14 @@ public class WidgetProvider extends AppWidgetProvider {
         for (int appWidgetId : appWidgetIds) {
             updateWidgetView(context, appWidgetManager, appWidgetId);
         }
+
     }
 
     //Take the http response and update the UI
     static void updateWidgetView(final Context context, final AppWidgetManager appWidgetManager, final int appWidgetId){
 
         //Updating views of widget through RemoteViews
-        final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.appwidget);
+        final RemoteViews[] views = {new RemoteViews(context.getPackageName(), R.layout.appwidget)};
 
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(context);
@@ -56,17 +57,17 @@ public class WidgetProvider extends AppWidgetProvider {
                             JSONObject data = baseJsonResponse.getJSONObject("data");
 
                             //set the views to be updated on the widget
-                            RemoteViews updatedViews = setViewGroup(views, data);
+                            views[0] = setViewGroup(views[0], data);
 
                             //Add tap-to-update option
                             Intent intentSync = new Intent(context, WidgetProvider.class);
                             intentSync.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
                             intentSync.putExtra( AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[] { appWidgetId } );
                             PendingIntent pendingSync = PendingIntent.getBroadcast(context,0, intentSync, PendingIntent.FLAG_UPDATE_CURRENT);
-                            views.setOnClickPendingIntent(R.id.update_view, pendingSync);
+                            views[0].setOnClickPendingIntent(R.id.update_view, pendingSync);
 
                             //Notify the widget to get updated
-                            appWidgetManager.updateAppWidget(appWidgetId, updatedViews);
+                            appWidgetManager.updateAppWidget(appWidgetId, views[0]);
 
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
@@ -77,6 +78,13 @@ public class WidgetProvider extends AppWidgetProvider {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                //Add tap-to-update option when get errors
+                Intent intentSync = new Intent(context, WidgetProvider.class);
+                intentSync.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                intentSync.putExtra( AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[] { appWidgetId } );
+                PendingIntent pendingSync = PendingIntent.getBroadcast(context,0, intentSync, PendingIntent.FLAG_UPDATE_CURRENT);
+                views[0].setOnClickPendingIntent(R.id.update_view, pendingSync);
+                appWidgetManager.updateAppWidget(appWidgetId, views[0]);
                 Log.e("Volley Error:", String.valueOf(error));
             }
         });

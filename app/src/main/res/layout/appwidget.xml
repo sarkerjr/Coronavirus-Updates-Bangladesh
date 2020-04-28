@@ -8,14 +8,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:orientation="horizontal"
         >
         <LinearLayout
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="#9519b5fe"
-            android:padding="10dp"
+            android:padding="8dp"
             android:gravity="center"
             android:layout_weight="1">
             <TextView
@@ -80,10 +82,10 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="#9500b16a"
-            android:padding="10dp"
+            android:padding="8dp"
             android:gravity="center"
             android:layout_weight="1">
             <TextView
@@ -149,14 +151,15 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="8"
         >
         <LinearLayout
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="#95f27935"
-            android:padding="10dp"
+            android:padding="8dp"
 
             android:gravity="center"
             android:layout_weight="1">
@@ -223,10 +226,10 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="#95cf000f"
-            android:padding="10dp"
+            android:padding="8dp"
             android:gravity="center"
             android:layout_weight="1">
             <TextView
@@ -293,8 +296,9 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="center"
         android:background="#951f3a93"
         >
         <TextView
@@ -304,8 +308,6 @@
             android:textColor="#fff"
             android:padding="1dp"
             />
-
-
     </LinearLayout>
 
 </LinearLayout>
