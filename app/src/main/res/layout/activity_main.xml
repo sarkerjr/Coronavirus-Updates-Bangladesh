@@ -5,9 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#eef2ec"
-    tools:context=".MainActivity"
-    android:orientation="vertical"
     >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#eef2ec"
+        tools:context=".MainActivity"
+        android:orientation="vertical">
+
+
 
     <TextView
         android:layout_width="match_parent"
@@ -81,7 +90,8 @@
         android:textColor="#2a273a"
         android:layout_marginLeft="60dp"
         android:textSize="15sp"
+        android:layout_marginBottom="30dp"
         />
-
-
+    </LinearLayout>
+    </ScrollView>
 </LinearLayout>
