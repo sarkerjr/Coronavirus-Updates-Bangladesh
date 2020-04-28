@@ -5,8 +5,11 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 
 import com.android.volley.Request;
@@ -23,14 +26,31 @@ import java.io.UnsupportedEncodingException;
 
 public class WidgetProvider extends AppWidgetProvider {
     @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+    public void onUpdate(Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
+
+        //For handling the progressBar
+        final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.appwidget);
+
+        //Make the progressBar visible at the beginning
+        remoteViews.setViewVisibility(R.id.loadingIndicator, View.VISIBLE);
+        appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
 
         //If multiple widgets are active, then update them all
         for (int appWidgetId : appWidgetIds) {
             updateWidgetView(context, appWidgetManager, appWidgetId);
         }
 
+        //For showing the progressBar
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Remove the progressBar afer the http request and a delay
+                remoteViews.setViewVisibility(R.id.loadingIndicator, View.GONE);
+                appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
+            }
+        }, 1000);
     }
 
     //Take the http response and update the UI
