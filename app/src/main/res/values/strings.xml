@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">CoronaBD</string>
-    <string name="home_text">CoronaBD is a widget app. It shows update news about corona virus in Bangladesh. You can check the number of people Infected, Cured, Tested and Died. It takes data from \'corona.gov.bd\' website in every hour. You can tap the widget to reload the data.</string>
+    <string name="home_text">CoronaBD is a widget app. It shows update news about corona virus in Bangladesh. You can check the number of people infected, cured, tested and died. It takes data from \'corona.gov.bd\' website in every two hours. You can tap the widget to reload the data.</string>
     <string name="instruction">Kindly enable the CoronaBD widget from your Widgets by holding the wallpaper.</string>
 </resources>
