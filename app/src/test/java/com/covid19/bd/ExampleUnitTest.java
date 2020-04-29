@@ -1,4 +1,4 @@
-package com.sarkerjr.widgetpractice;
+package com.covid19.bd;
 
 import org.junit.Test;
 

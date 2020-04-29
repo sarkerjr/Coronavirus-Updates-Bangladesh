@@ -1,15 +1,15 @@
-package com.sarkerjr.widgetpractice;
+package com.covid19.bd;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 
 import com.android.volley.Request;
@@ -26,14 +26,19 @@ import java.io.UnsupportedEncodingException;
 
 public class WidgetProvider extends AppWidgetProvider {
     @Override
-    public void onUpdate(Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds) {
+    public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
 
         //For handling the progressBar
         final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.appwidget);
 
-        //Make the progressBar visible at the beginning
-        remoteViews.setViewVisibility(R.id.loadingIndicator, View.VISIBLE);
+        if(isNetworkConnected(context))
+            //Make the progressBar visible at the beginning
+            remoteViews.setViewVisibility(R.id.loadingIndicator, View.VISIBLE);
+        else
+            //Set Tap To Refresh to No Internet... if no internet available
+            remoteViews.setTextViewText(R.id.tapToRefresh, "No Internet...");
+
         appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
 
         //If multiple widgets are active, then update them all
@@ -46,8 +51,12 @@ public class WidgetProvider extends AppWidgetProvider {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                //Remove the progressBar afer the http request and a delay
-                remoteViews.setViewVisibility(R.id.loadingIndicator, View.GONE);
+                if(isNetworkConnected(context))
+                    //Remove the progressBar afer the http request and a delay
+                    remoteViews.setViewVisibility(R.id.loadingIndicator, View.GONE);
+                else
+                    remoteViews.setTextViewText(R.id.tapToRefresh, "Tap To Refresh");
+
                 appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
             }
         }, 1000);
@@ -128,5 +137,11 @@ public class WidgetProvider extends AppWidgetProvider {
             e.printStackTrace();
         }
         return views;
+    }
+
+    //Check if device is connected to a network
+    private boolean isNetworkConnected(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }
