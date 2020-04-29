@@ -37,7 +37,7 @@ public class WidgetProvider extends AppWidgetProvider {
             remoteViews.setViewVisibility(R.id.loadingIndicator, View.VISIBLE);
         else
             //Set Tap To Refresh to No Internet... if no internet available
-            remoteViews.setTextViewText(R.id.tapToRefresh, "No Internet...");
+            remoteViews.setTextViewText(R.id.tapToRefresh, "No Internet");
 
         appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
 
@@ -52,7 +52,7 @@ public class WidgetProvider extends AppWidgetProvider {
             @Override
             public void run() {
                 if(isNetworkConnected(context))
-                    //Remove the progressBar afer the http request and a delay
+                    //Remove the progressBar after the http request and a delay
                     remoteViews.setViewVisibility(R.id.loadingIndicator, View.GONE);
                 else
                     remoteViews.setTextViewText(R.id.tapToRefresh, "Tap To Refresh");
